@@ -1,18 +1,90 @@
 {
   "type": "record",
-  "name": "DocumentMessage",
+  "name": "Avro",
   "fields": [
     {
-      "name": "id",
+      "name": "asset_id",
       "type": "string"
     },
     {
-      "name": "source_data",
-      "type": "string"
+      "name": "asset_name",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
     },
     {
-      "name": "Timestamp",
-      "type": "string"
+      "name": "fund_id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "fund_name",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "sasb_sub",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "E101_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
+    },
+    {
+      "name": "E102_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
+    },
+    {
+      "name": "E103_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
+    },
+    {
+      "name": "E104_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
+    },
+    {
+      "name": "E105_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
+    },
+    {
+      "name": "E106_sasb_score",
+      "type": [
+        "null",
+        "float"
+      ],
+      "default": null
     }
   ]
 }

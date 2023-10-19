@@ -4,13 +4,13 @@ import avro from 'avro-js';
 import fs from 'fs';
 
 // Change these before running.
-const MONGODB_URI = '<your-mongodb-uri>';
-const PUB_SUB_TOPIC = 'projects/<your-project>/topics/<your-topic>';
+const MONGODB_URI = 'mongodb+srv://saas_staging_admin:7G2Vw3OwylVtvDTu@imp-staging-cluster.9usly.mongodb.net/saas_staging';
+const PUB_SUB_TOPIC = 'projects/imp-dev-368912/topics/assets-interpolate-cdc';
 
 let mongodbClient;
 try {
     mongodbClient = new MongoClient(MONGODB_URI);
-    await monitorCollectionForInserts(mongodbClient, 'my-database', 'my-collection');
+    await monitorCollectionForInserts(mongodbClient, 'saas_staging', 'assets_interpolation_data');
 } finally {
     mongodbClient.close();
 }
@@ -24,6 +24,7 @@ async function monitorCollectionForInserts(client, databaseName, collectionName,
     console.log(`Watching for changes in '${databaseName}.${collectionName}'...`);
 
     changeStream.on('change', event => {
+        console.log("Change event called.");
         const document = event.fullDocument;
         publishDocumentAsMessage(document, PUB_SUB_TOPIC);
     });
@@ -49,9 +50,7 @@ async function publishDocumentAsMessage(document, topicName) {
     const type = avro.parse(definition);
 
     const message = {
-        id: document?._id?.toString(),
-        source_data: JSON.stringify(document),
-        Timestamp: new Date().toISOString(),
+        "asset_id": document?.asset_id?.toString()
     };
 
     const dataBuffer = Buffer.from(type.toString(message));
@@ -62,3 +61,11 @@ async function publishDocumentAsMessage(document, topicName) {
         console.error(error);
     }
 }
+
+
+
+jdbc:mongobi://testorg-test-cluster-de-biconnector-pri.5iei7.mongodb.net:27015/testorg-test-cluster-dev?zeroDateTimeBehavior=convertToNull&tcpKeepAlive=true&useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.0,TLSv1.1,TLSv1.2,TLSv1.3&trustServerCertificate=true&allowLoadLocalInfile=false
+
+
+
+mongodb+srv://saas_staging_admin:7G2Vw3OwylVtvDTu@imp-staging-cluster.9usly.mongodb.net/
